@@ -7,11 +7,11 @@ app = Flask(__name__)
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('template.html', current_time = datetime.now(), my_name = "World", jedi_name = "")
+    return render_template('home.html', current_time = datetime.now(), my_name = "World")
 
-@app.route("/<name>")
-def hello(name):
-    return render_template('template.html', current_time = datetime.now(), my_name = "{}".format(name.title()), jedi_name = "")
+@app.route("/hello/<name>")
+def name(name):
+    return render_template('name.html', current_time = datetime.now(), my_name = "{}".format(name.title()))
 
 @app.route("/jedi/<name>/<last>")
 def jedi(name, last):
@@ -22,7 +22,7 @@ def jedi(name, last):
     # add first 2 letters of first name
     for k in range(2):
         jname = jname + name[k]
-    return render_template('template.html', current_time = datetime.now(), my_name = "{}".format(name.title()), jedi_name = "{}".format(jname.title()))
+    return render_template('jedi.html', current_time = datetime.now(), my_name = "{}".format(name.title()), jedi_name = "{}".format(jname.title()))
 
 @app.template_filter("formatdate")
 def datetimefilter(value, format = "%Y/%m/%d %H:%M"):
